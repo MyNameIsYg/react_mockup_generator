@@ -1,8 +1,9 @@
-// RMGText.js
 import React from 'react';
-
-const RMGText = ({ children }) => {
-    return <text>{children}</text>;
+const RMGText = ({ text, fontSize, fontWeight }) => {
+  return (
+    <p className={`text-${fontSize} font-${fontWeight}`}>
+      {text}
+    </p>
+  );
 };
-
 export default RMGText;

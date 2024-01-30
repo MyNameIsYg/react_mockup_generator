@@ -1,34 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import MockupGenerator from './Components/MockupGenerator';
+// App.js
+import React, { useState } from 'react';
+import UsersRequest from './Components/UsersRequest';
+import generateLayoutFromDescription from './Api Call/RequestToGPT';
+import DynamicComponent from './Components/DynamicComponent';
 
 function App() {
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
-  const input = {
-    title: 'Login Page',
-    description: 'Welcome to our amazing app, please login!',
+  const [result, setResult] = useState('');
+  const handleUserRequest = async (description) => {
+    try {
+      const layout = await generateLayoutFromDescription(description);
+      setResult(layout);
+      // Handle the layout object as needed
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle errors
+    }
   };
 
   return (
     <div>
-      <MockupGenerator input={input} />
+      <UsersRequest onSubmit={handleUserRequest} />
+      <div style={{ backgroundColor: '#f1f1f1', padding: '10px', borderRadius: '5px' }}>
+        <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>{result}</pre>
+      </div>
+      {/* <DynamicComponent /> */}
     </div>
   );
 }
